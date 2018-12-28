@@ -20,11 +20,7 @@ function BabelPluginSimpleI18N(babel) {
                 const values = (path.node.arguments[2]||{}).properties
 
                 storeTerms[id] = defaultMessage
-
-                const params = (values||[]).map((node) => {
-                  const v = node.value.value ? `"${node.value.value}"` : generate(node.value).code
-                  return `${node.key.name}: ${v}`
-                })
+                const params = generate(values)
 
                 path.replaceWithSourceString(`React.createElement(${importName.name}, {
                   id: ${JSON.stringify(id)},

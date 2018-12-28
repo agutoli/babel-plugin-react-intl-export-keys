@@ -1,9 +1,10 @@
 {
   "name": "babel-plugin-react-intl-export-keys",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "main": "lib/index.js",
   "scripts": {
+    "prepublish": "npm run build",
     "build": "babel src -d lib",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
