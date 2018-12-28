@@ -1,5 +1,6 @@
 const fs = require('fs')
 const { resolve, join } = require('path')
+const generate = require('@babel/generator').default;
 const { addNamed } = require("@babel/helper-module-imports")
 
 const storeTerms = {}
@@ -21,7 +22,7 @@ function BabelPluginSimpleI18N(babel) {
                 storeTerms[id] = defaultMessage
 
                 const params = (values||[]).map((node) => {
-                  const v = node.value.value ? `"${node.value.value}"` : node.value.name
+                  const v = node.value.value ? `"${node.value.value}"` : generate(node.value).code
                   return `${node.key.name}: ${v}`
                 })
 
