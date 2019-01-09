@@ -14,7 +14,7 @@ function BabelPluginSimpleI18N(babel) {
         enter(path, state) {
           const { functionName = "__", outputFile = false } = state.opts
           if (path.node.callee.name === state.opts.functionName && t.isIdentifier(path.node.callee)) {
-            if(path.node.arguments.length >= 2) {
+            if(path.node.arguments.length >= 1) {
               const importName = addNamed(path, 'FormattedMessage', 'react-intl');
               if (path.node.arguments[1].type == 'StringLiteral') {
                 // const id = (path.node.arguments[0]||{}).value
