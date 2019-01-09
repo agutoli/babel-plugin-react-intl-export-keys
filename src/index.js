@@ -17,11 +17,11 @@ function BabelPluginSimpleI18N(babel) {
             if(path.node.arguments.length >= 2) {
               const importName = addNamed(path, 'FormattedMessage', 'react-intl');
               if (path.node.arguments[1].type == 'StringLiteral') {
-                const id = (path.node.arguments[0]||{}).value
-                const defaultMessage = (path.node.arguments[1]||{}).value
-                const values = (path.node.arguments[2]||{}).properties
+                // const id = (path.node.arguments[0]||{}).value
+                const defaultMessage = (path.node.arguments[0]||{}).value
+                const values = (path.node.arguments[1]||{}).properties
 
-                storeTerms[id] = defaultMessage
+                storeTerms[defaultMessage] = defaultMessage
 
                 const params = (values||[]).map((node) => {
                   const v = node.value.value ? `"${node.value.value}"` : generate(node.value).code
@@ -29,7 +29,7 @@ function BabelPluginSimpleI18N(babel) {
                 })
 
                 path.replaceWithSourceString(`React.createElement(${importName.name}, {
-                  id: ${JSON.stringify(id)},
+                  id: ${JSON.stringify(defaultMessage)},
                   defaultMessage: ${JSON.stringify(defaultMessage)},
                   values: {${params.join(',')}}
                 }, (txt) => txt)`);
