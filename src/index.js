@@ -15,7 +15,7 @@ function BabelPluginSimpleI18N(babel) {
           const { functionName = "__", outputFile = false } = state.opts
           if (path.node.callee.name === state.opts.functionName && t.isIdentifier(path.node.callee)) {
             if(path.node.arguments.length >= 1) {
-              const currentFile = state.filename.replace(`${process.env.PWD}/`, '');
+              const currentFile = (state.filename || '').replace(`${process.env.PWD}/`, '');
               const importName = addNamed(path, 'FormattedMessage', 'react-intl');
               if (path.node.arguments[0].type == 'StringLiteral') {
                 // const id = (path.node.arguments[0]||{}).value
